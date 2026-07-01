@@ -1,47 +1,27 @@
-# 🎰 Zufallsautomat
+# 🎰 Audio-Casino
 
-Eine kleine Webseite, die einen Spielautomaten nachbildet: Man zieht am Hebel,
-die Walzen drehen sich kurz und anschließend spielt der Automat eine
-zufällige Audiodatei aus einer festgelegten Auswahl ab.
+Repository dient dem Betrieb eines Audio-Casinos. Dabei wird eine Slotmaschine nachgestellt und mit jedem Drehen wird ein "random" Sound abgespielt. Jeder Sound hat sein eigenes Emoji um es auch an der Anzeige her zu erkennen. Die restlichen Plätze an der Slotmaschine werden mit 6 7 Emojis gefüllt.
 
-Reines HTML/CSS/JS ohne Build-Schritt und ohne Backend – läuft direkt über
-**GitHub Pages**.
+## Bedienung
 
-## Live-Demo einrichten (GitHub Pages)
-
-1. Repository auf GitHub erstellen und diese Dateien hochladen (siehe unten).
-2. In den Repo-Einstellungen zu **Settings → Pages** gehen.
-3. Unter **Branch** den Branch `main` und den Ordner `/ (root)` auswählen,
-   speichern.
-4. Nach kurzer Zeit ist die Seite unter
-   `https://<dein-username>.github.io/<repo-name>/` erreichbar.
-
-## Lokal hochladen
-
-```bash
-git init
-git add .
-git commit -m "Zufallsautomat"
-git branch -M main
-git remote add origin https://github.com/<dein-username>/<repo-name>.git
-git push -u origin main
-```
+Sehr sehr einfach. Lautstärke auf Maximum stellen, und am hebel ziehen.
 
 ## Projektstruktur
 
 ```
 .
-├── index.html          Seite mit Hebel, Walzen und Anzeigefeld
+├── index.html            Seite mit Hebel, Walzen und Anzeigefeld
 ├── css/
-│   └── style.css        Vintage-Automaten-Design
+│   └── style.css         Vintage-Automaten-Design
 ├── js/
 │   └── script.js         Hebel-Logik, Walzen-Animation, Zufallsauswahl
-├── audio/
-│   ├── jackpot.wav
-│   ├── muenzregen.wav
-│   ├── glocke.wav
-│   ├── applaus.wav
-│   └── niete.wav
+├── audio/                Hier eigene Sounds einfügen (Audiodateien, welche in diesem Ordner sind, dürfen nicht von dritten verwendet wenden)
+├── ├──testlib/           Testbibliotheck mit Testsounds  
+│   │   ├── jackpot.wav
+│   │   ├── muenzregen.wav
+│   │   ├── glocke.wav
+│   │   ├── applaus.wav
+│   │   └── niete.wav
 └── README.md
 ```
 
@@ -51,7 +31,7 @@ funktioniert. Sie lassen sich problemlos durch eigene Sounds ersetzen.
 
 ## Eigene Sounds hinzufügen
 
-1. Audiodatei (z. B. `.mp3` oder `.wav`) in den Ordner `audio/` legen.
+1. Audiodatei (z. B. `.mp3` oder `.wav`) in den Ordner `audio/` legen. (Wichtig die mp3-Dateien, welche in diesem Order sind, dürfen nur vom Ersteller verwendet werden)
 2. In `js/script.js` das Array `SOUND_LIBRARY` erweitern:
 
    ```js
@@ -72,18 +52,6 @@ Einträge aus der Liste entfernen funktioniert genauso einfach: den
 entsprechenden Objekt-Eintrag löschen und die zugehörige Datei bei Bedarf aus
 `audio/` entfernen.
 
-## Bedienung
-
-- Mit der Maus/dem Finger auf den Hebel klicken bzw. tippen.
-- Per Tastatur: Hebel fokussieren (Tab) und `Leertaste` oder `Enter` drücken.
-- Browser blockieren Audiowiedergabe teils, bevor die Seite einmal angeklickt
-  wurde – ein zweiter Hebelzug reicht dann in der Regel.
-
 ## Lizenz
 
-Nutze den Code frei für eigene Projekte.
-
-## Experiment
-
-Dieses repository wurde komplett von Claude erstellt mit folgendem Prompt:
-Ich würde gerne mit html eine Webseite bauen, bei welcher man wie im Casino an einem Automaten einen hebel zieht und dann eine random audiodatei abspielt. Die Audiodateien, sollen aus einer Auswahl stammen und das ganze soll als repository auf github funktionieren. Kannst du mir den Code dafür schreiben.
+Ich stelle alles, </b> ausser die mp3-Dateien im Ordner audio </b> zur freien Verfügung.
