@@ -1,57 +1,66 @@
-# 🎰 Audio-Casino
+# 🎰 Audio Casino
 
-Repository dient dem Betrieb eines Audio-Casinos. Dabei wird eine Slotmaschine nachgestellt und mit jedem Drehen wird ein "random" Sound abgespielt. Jeder Sound hat sein eigenes Emoji um es auch an der Anzeige her zu erkennen. Die restlichen Plätze an der Slotmaschine werden mit 6 7 Emojis gefüllt.
+An interactive slot machine that plays a random audio clip every time you pull the lever.
 
-## Bedienung
+Each sound is represented by its own unique emoji, making it easy to identify the selected audio on the display. The remaining reels are filled with six - seven emojis (just for the giggles.
 
-Sehr sehr einfach. Lautstärke auf Maximum stellen, und am hebel ziehen.
+## Usage
 
-## Projektstruktur
+Using the Audio Casino couldn't be easier:
 
-```
+1. Turn your speakers or headphones up to the full volume.
+2. Pull the lever.
+3. Enjoy the randomly selected sound!
+
+## Project Structure
+
+```text
 .
-├── index.html            Seite mit Hebel, Walzen und Anzeigefeld
+├── index.html            Main page containing the slot machine, lever, reels, and display
 ├── css/
-│   └── style.css         Vintage-Automaten-Design
+│   └── style.css         Style of the slot machine, ect.
 ├── js/
-│   └── script.js         Hebel-Logik, Walzen-Animation, Zufallsauswahl
-├── audio/                Hier eigene Sounds einfügen (Audiodateien, welche in diesem Ordner sind, dürfen nicht von dritten verwendet wenden)
-├── ├──testlib/           Testbibliotheck mit Testsounds  
-│   │   ├── jackpot.wav
-│   │   ├── muenzregen.wav
-│   │   ├── glocke.wav
-│   │   ├── applaus.wav
-│   │   └── niete.wav
+│   └── script.js         Slot logic, reel animations, and random sound selection
+├── audio/                Add your own audio files here
+│   └── testlib/          Test library containing placeholder sounds
+│       ├── jackpot.wav
+│       ├── coin-rain.wav
+│       ├── bell.wav
+│       ├── applause.wav
+│       └── miss.wav
 └── README.md
 ```
 
-Die mitgelieferten `.wav`-Dateien sind einfache, synthetisch erzeugte
-Platzhaltersounds (Sinustöne/Rauschen), damit das Repository sofort
-funktioniert. Sie lassen sich problemlos durch eigene Sounds ersetzen.
+The included `.wav` files are simple synthetic placeholder sounds (sine waves and noise) so the project works immediately after cloning. They are intended for testing and can easily be replaced with your own audio files.
 
-## Eigene Sounds hinzufügen
+## Adding Your Own Sounds
 
-1. Audiodatei (z. B. `.mp3` oder `.wav`) in den Ordner `audio/` legen. (Wichtig die mp3-Dateien, welche in diesem Order sind, dürfen nur vom Ersteller verwendet werden)
-2. In `js/script.js` das Array `SOUND_LIBRARY` erweitern:
+1. Copy your audio file (for example, `.mp3` or `.wav`) into the `audio/` directory.
 
-   ```js
-   const SOUND_LIBRARY = [
-     { file: "audio/jackpot.wav",  label: "Jackpot!",  symbol: "🎉" },
-     { file: "audio/mein-sound.mp3", label: "Mein Sound", symbol: "🎵" },
-     // weitere Einträge …
-   ];
-   ```
+   > **Important:** Audio files placed in this folder are subject to copyright. Make sure you have the rights to use them. The bundled custom MP3 files are intended for use by their creator only and must not be redistributed or used by third parties.
 
-   - `file` – Pfad zur Datei relativ zu `index.html`
-   - `label` – Text, der im Anzeigefeld nach dem Stopp erscheint
-   - `symbol` – Emoji/Zeichen, das auf der mittleren Walze angezeigt wird
+2. Add a new entry to the `SOUND_LIBRARY` array in `js/script.js`:
 
-3. Speichern, fertig – der Automat wählt jetzt auch diesen Sound zufällig aus.
+```javascript
+const SOUND_LIBRARY = [
+  { file: "audio/jackpot.wav", label: "Jackpot!", symbol: "🎉" },
+  { file: "audio/my-sound.mp3", label: "My Sound", symbol: "🎵" },
+  // Additional entries...
+];
+```
 
-Einträge aus der Liste entfernen funktioniert genauso einfach: den
-entsprechenden Objekt-Eintrag löschen und die zugehörige Datei bei Bedarf aus
-`audio/` entfernen.
+Each entry consists of:
 
-## Lizenz
+* **`file`** – Path to the audio file relative to `index.html`
+* **`label`** – Text displayed after the reels stop spinning
+* **`symbol`** – Emoji or character shown on the center reel
 
-Ich stelle alles, **ausser die mp3-Dateien im Ordner audio**, zur freien Verfügung.
+3. Save the file. Your new sound will now be included in the random selection.
+
+To remove a sound, simply delete its entry from `SOUND_LIBRARY` and optionally remove the corresponding audio file from the `audio/` directory.
+
+## License
+
+The source code may be freely used, modified, and incorporated into your own projects.
+
+Please note that the audio files (all mp3-files / linked files from the web) referenced in the `SOUND_LIBRARY` (especially custom audio files provided by the repository owner) are **not** covered by this permission and may **not** be used, redistributed, or included in third-party projects without explicit permission from their respective copyright holder.
