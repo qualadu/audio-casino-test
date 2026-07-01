@@ -7,11 +7,11 @@
  *   symbol -> Emoji/Zeichen für die Walzen
  */
 const SOUND_LIBRARY = [
-  { file: "audio/jackpot.wav",    label: "Jackpot!",        symbol: "🎉" },
-  { file: "audio/muenzregen.wav", label: "Münzregen",       symbol: "🪙" },
-  { file: "audio/glocke.wav",     label: "Glocke",          symbol: "🔔" },
-  { file: "audio/applaus.wav",    label: "Applaus",         symbol: "👏" },
-  { file: "audio/niete.wav",      label: "Nochmal!",        symbol: "🍋" },
+  { file: "audio/jackpot.wav",    label: "Jackpot!",        symbol: "⚡" },
+  { file: "audio/muenzregen.wav", label: "Münzregen",       symbol: "🥤" },
+  { file: "audio/glocke.wav",     label: "Glocke",          symbol: "🧊" },
+  { file: "audio/applaus.wav",    label: "Applaus",         symbol: "❄️" },
+  { file: "audio/niete.wav",      label: "Nochmal!",        symbol: "🔋" },
 ];
 
 const leverBtn   = document.getElementById("leverBtn");
