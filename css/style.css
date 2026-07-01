@@ -1,12 +1,12 @@
 :root {
-  --felt: #123524;
-  --felt-dark: #0a2318;
-  --brass: #c9a227;
-  --brass-light: #e8c766;
-  --cream: #f3e9d2;
-  --maroon: #6b1e23;
-  --maroon-dark: #4a1216;
-  --shadow: #05100b;
+  --ice: #d7eef5;
+  --ice-bright: #aee6f5;
+  --steel: #3a4750;
+  --steel-dark: #1b2226;
+  --deep: #0b1114;
+  --ink: #05080a;
+  --accent: #5fd6ff;
+  --paper: #f4f7f8;
   --font-display: 'Alfa Slab One', serif;
   --font-condensed: 'Bebas Neue', sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
@@ -17,9 +17,7 @@
 html, body {
   margin: 0;
   min-height: 100%;
-  background:
-    radial-gradient(circle at 50% -10%, #1c4a34 0%, var(--felt) 45%, var(--felt-dark) 100%);
-  color: var(--cream);
+  color: var(--paper);
   font-family: var(--font-body);
 }
 
@@ -28,8 +26,14 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 1.5rem 1rem 3rem;
+  padding: 1.2rem 1rem 1.6rem;
   overflow-x: hidden;
+  background-image:
+    linear-gradient(180deg, rgba(5, 10, 12, 0.55) 0%, rgba(5, 10, 12, 0.35) 35%, rgba(4, 9, 11, 0.85) 100%),
+    url("../img/hintergrund.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 /* Lichterkette oben */
@@ -44,18 +48,19 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--brass);
-  box-shadow: 0 0 4px 1px rgba(201, 162, 39, 0.5);
+  background: var(--ice-bright);
+  box-shadow: 0 0 4px 1px rgba(174, 230, 245, 0.5);
   transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 .bulb-row .bulb.lit {
-  background: var(--brass-light);
-  box-shadow: 0 0 12px 4px rgba(232, 199, 102, 0.85);
+  background: var(--accent);
+  box-shadow: 0 0 12px 4px rgba(95, 214, 255, 0.9);
 }
 
 .stage {
   width: 100%;
   max-width: 520px;
+  min-height: calc(100vh - 2.8rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -65,10 +70,10 @@ body {
 .marquee {
   font-family: var(--font-display);
   font-size: clamp(2rem, 8vw, 3.2rem);
-  color: var(--brass-light);
+  color: var(--ice-bright);
   text-shadow:
-    0 0 10px rgba(232, 199, 102, 0.35),
-    2px 2px 0 var(--shadow);
+    0 0 14px rgba(95, 214, 255, 0.45),
+    2px 2px 0 var(--ink);
   letter-spacing: 0.02em;
   margin: 0.2rem 0 0.3rem;
 }
@@ -77,21 +82,31 @@ body {
   font-family: var(--font-condensed);
   letter-spacing: 0.08em;
   font-size: 1.1rem;
-  color: rgba(243, 233, 210, 0.75);
-  margin: 0 0 2rem;
+  color: rgba(215, 238, 245, 0.8);
+  margin: 0 0 1rem;
 }
 
-/* Automatengehaeuse */
+/* Unterer Block wird an das Ende der Seite gedrueckt */
+.bottom-panel {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Automatengehaeuse: gebuersteter Stahl statt Holz/Messing */
 .cabinet {
   position: relative;
   width: 100%;
-  background: linear-gradient(180deg, #7a2b30 0%, var(--maroon) 55%, var(--maroon-dark) 100%);
+  background:
+    linear-gradient(180deg, #4c5a63 0%, var(--steel) 55%, var(--steel-dark) 100%);
   border-radius: 22px;
   padding: 1.6rem 1.6rem 2.4rem;
   box-shadow:
-    0 20px 45px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 3px rgba(201, 162, 39, 0.7),
-    inset 0 0 0 6px rgba(0, 0, 0, 0.25);
+    0 20px 45px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 3px rgba(95, 214, 255, 0.55),
+    inset 0 0 0 6px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: flex-end;
   gap: 1.2rem;
@@ -99,17 +114,17 @@ body {
 
 .cabinet-plate {
   flex: 1;
-  background: var(--felt-dark);
+  background: var(--deep);
   border-radius: 14px;
   padding: 1.2rem;
-  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.6), inset 0 0 0 2px rgba(201, 162, 39, 0.4);
+  box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.65), inset 0 0 0 2px rgba(95, 214, 255, 0.3);
 }
 
 .reel-window {
   display: flex;
   gap: 0.6rem;
   justify-content: center;
-  background: var(--shadow);
+  background: var(--ink);
   border-radius: 10px;
   padding: 0.9rem 0.6rem;
   box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.7);
@@ -122,9 +137,9 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 2.1rem;
-  background: linear-gradient(180deg, #1d1005 0%, #120a03 100%);
+  background: linear-gradient(180deg, #10181c 0%, #060a0c 100%);
   border-radius: 8px;
-  box-shadow: inset 0 0 0 2px rgba(201, 162, 39, 0.35);
+  box-shadow: inset 0 0 0 2px rgba(95, 214, 255, 0.3);
   overflow: hidden;
 }
 
@@ -148,7 +163,7 @@ body {
   font-size: 1rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--brass-light);
+  color: var(--accent);
   margin: 0.9rem 0 0.1rem;
   min-height: 1.4em;
 }
@@ -167,7 +182,7 @@ body {
 }
 
 .lever-assembly:focus-visible {
-  outline: 3px solid var(--brass-light);
+  outline: 3px solid var(--accent);
   outline-offset: 4px;
   border-radius: 12px;
 }
@@ -180,7 +195,7 @@ body {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #e8c766, #8a6a15 75%);
+  background: radial-gradient(circle at 35% 30%, #cfeaf5, #5c7078 75%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(0,0,0,0.25);
 }
 
@@ -203,7 +218,7 @@ body {
   width: 10px;
   height: 140px;
   border-radius: 6px;
-  background: linear-gradient(90deg, #d8ba6e, #8a6a15 45%, #d8ba6e 100%);
+  background: linear-gradient(90deg, #dceff5, #5c7078 45%, #dceff5 100%);
   box-shadow: 0 3px 6px rgba(0,0,0,0.4);
 }
 
@@ -215,7 +230,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #ff6b62, var(--maroon) 75%);
+  background: radial-gradient(circle at 35% 30%, #9be9ff, var(--accent) 60%, #1f7a94 100%);
   box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 0 0 2px rgba(0,0,0,0.2);
 }
 
@@ -224,9 +239,9 @@ body {
 }
 
 .hint {
-  margin-top: 1.6rem;
+  margin-top: 1.2rem;
   font-size: 0.85rem;
-  color: rgba(243, 233, 210, 0.55);
+  color: rgba(215, 238, 245, 0.7);
   max-width: 380px;
 }
 
