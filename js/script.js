@@ -14,12 +14,12 @@ const SOUND_LIBRARY = [
   { file: "audio/testlib/applaus.wav",    label: "Applaus",         symbol: "❄️" },
   { file: "audio/testlib/niete.wav",      label: "Nochmal!",        symbol: "🔋" },
   */
-  { file: "audio/bruahh_brrrh.mp3",      label: "🫧🫧🫧🫧",        symbol: "🫧" },
-  { file: "audio/bruahhh.mp3",           label: "🦴🦴🦴🦴",        symbol: "🦴" },
-  { file: "audio/chuhhp.mp3",            label: "🐽🐽🐽🐽",        symbol: "🐽" },
-  { file: "audio/huachp.mp3",            label: "😼😼😼😼",        symbol: "😼" },
-  { file: "audio/luuhhp.mp3",            label: "👣👣👣👣",        symbol: "👣" },
-  { file: "audio/phuph.mp3",             label: "💨💨💨💨",        symbol: "💨" },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/bruahh_brrrh.mp3",      label: "🫧🫧🫧🫧",        symbol: "🫧" },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/bruahhh.mp3",           label: "🦴🦴🦴🦴",        symbol: "🦴" },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/chuhhp.mp3",            label: "🐽🐽🐽🐽",        symbol: "🐽" },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/huachp.mp3",            label: "😼😼😼😼",        symbol: "😼" },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/luuhhp.mp3",            label: "👣👣👣👣",        symbol: "👣" },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/phuph.mp3",             label: "💨💨💨💨",        symbol: "💨" },
 ];
 
 const leverBtn   = document.getElementById("leverBtn");
