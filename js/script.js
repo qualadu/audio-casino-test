@@ -30,6 +30,16 @@ const reels      = [
   document.getElementById("reel2"),
   document.getElementById("reel3"),
 ];
+
+const START_COMBINATION = ["6️⃣", "7️⃣", "⁶🤷‍♂️⁷"];
+
+function initReels() {
+  reels.forEach((reel, idx) => {
+    const span = reel.querySelector("span");
+    span.textContent = START_COMBINATION[idx];
+  });
+}
+
 const bulbRow = document.getElementById("bulbRow");
 
 // Lichterkette erzeugen
@@ -173,3 +183,5 @@ leverBtn.addEventListener("keydown", (e) => {
     pullLever();
   }
 });
+
+window.addEventListener("DOMContentLoaded", initReels);
