@@ -82,3 +82,8 @@ entsprechenden Objekt-Eintrag löschen und die zugehörige Datei bei Bedarf aus
 ## Lizenz
 
 Nutze den Code frei für eigene Projekte.
+
+## Experiment
+
+Dieses repository wurde komplett von Claude erstellt mit folgendem Prompt:
+Ich würde gerne mit html eine Webseite bauen, bei welcher man wie im Casino an einem Automaten einen hebel zieht und dann eine random audiodatei abspielt. Die Audiodateien, sollen aus einer Auswahl stammen und das ganze soll als repository auf github funktionieren. Kannst du mir den Code dafür schreiben.
