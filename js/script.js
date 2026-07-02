@@ -22,6 +22,8 @@ const SOUND_LIBRARY = [
   { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/phuph.mp3",             label: "💨💨💨💨",        symbol: "💨" },
 ];
 
+const SYMBOLS = ["🫧", "🦴", "🐽", "😼", "👣", "💨"];
+
 const leverBtn   = document.getElementById("leverBtn");
 const leverArm   = document.getElementById("leverArm");
 const readout    = document.getElementById("readout");
@@ -136,6 +138,20 @@ function stopLightsSettled() {
   setTimeout(() => bulbs.forEach((b) => b.classList.remove("lit")), 700);
 }
 
+function spinReel(reel, symbol, delay) {
+  const strip = reel.querySelector(".reel-strip");
+
+  const baseIndex = 20 * SYMBOLS.length;
+  const symbolIndex = SYMBOLS.indexOf(symbol);
+
+  const offset = -(baseIndex + symbolIndex) * 64;
+
+  setTimeout(() => {
+    strip.style.transition = "transform 2.4s cubic-bezier(.15,.85,.2,1)";
+    strip.style.transform = `translateY(${offset}px)`;
+  }, delay);
+}
+
 function pullLever() {
   if (isSpinning) return;
   isSpinning = true;
@@ -143,7 +159,9 @@ function pullLever() {
   const chosen = randomSound();
 
   leverBtn.classList.add("pulled");
-  reels.forEach((r) => r.classList.add("spinning"));
+  spinReel(reels[0], randomSymbol(), 0);
+  spinReel(reels[1], chosen.symbol, 200);
+  spinReel(reels[2], randomSymbol(), 400);
   chaseLights(true);
   readout.textContent = "Dreht …";
 
@@ -153,14 +171,6 @@ function pullLever() {
   // Walzen laufen lassen, dann auf dem gewaehlten Symbol stoppen
   const spinDuration = 1100;
   const stopDelays = [spinDuration, spinDuration + 220, spinDuration + 440];
-
-  reels.forEach((reel, idx) => {
-    setTimeout(() => {
-      reel.classList.remove("spinning");
-      const span = reel.querySelector("span");
-      span.textContent = idx === 1 ? chosen.symbol : randomSymbolExcept();
-    }, stopDelays[idx]);
-  });
 
   setTimeout(() => {
     chaseLights(false);
@@ -183,5 +193,22 @@ leverBtn.addEventListener("keydown", (e) => {
     pullLever();
   }
 });
+
+function initReels() {
+  reels.forEach(reel => {
+    const strip = reel.querySelector(".reel-strip");
+
+    strip.innerHTML = "";
+
+    for (let i = 0; i < 30; i++) {
+      const div = document.createElement("div");
+      div.className = "reel-symbol";
+      div.textContent = SYMBOLS[i % SYMBOLS.length];
+      strip.appendChild(div);
+    }
+
+    strip.style.transform = "translateY(0px)";
+  });
+}
 
 window.addEventListener("DOMContentLoaded", initReels);
