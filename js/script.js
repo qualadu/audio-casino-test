@@ -33,10 +33,65 @@ const reels      = [
 
 const START_COMBINATION = ["6️⃣", "7️⃣", "⁶🤷‍♂️⁷"];
 
+// Pool an Fuellsymbolen, die waehrend des Drehens durchs Fenster laufen
+function reelSymbolPool() {
+  return SOUND_LIBRARY.map((s) => s.symbol).concat(["6️⃣", "⚅", "7️⃣", "⁶🤷‍♂️⁷"]);
+}
+
 function initReels() {
   reels.forEach((reel, idx) => {
-    const span = reel.querySelector("span");
+    const strip = reel.querySelector(".reel-strip");
+    const itemHeight = reel.clientHeight;
+    strip.innerHTML = "";
+    const span = document.createElement("span");
+    span.style.height = itemHeight + "px";
     span.textContent = START_COMBINATION[idx];
+    strip.appendChild(span);
+    strip.style.transition = "none";
+    strip.style.transform = "translateY(0px)";
+  });
+}
+
+/**
+ * Baut einen Symbol-Streifen fuer eine Walze und laesst ihn nach oben
+ * durchlaufen, bis er auf finalSymbol abbremst - wie bei einer echten
+ * Slot-Machine (deceleration statt reinem loop).
+ */
+function spinReel(reel, finalSymbol, duration) {
+  const strip = reel.querySelector(".reel-strip");
+  const itemHeight = reel.clientHeight;
+  const pool = reelSymbolPool();
+
+  // genug Zufallssymbole, damit die Walze mehrfach "umlaeuft"
+  const fillerCount = 22;
+
+  strip.style.transition = "none";
+  strip.style.transform = "translateY(0px)";
+  strip.innerHTML = "";
+
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < fillerCount; i++) {
+    const span = document.createElement("span");
+    span.style.height = itemHeight + "px";
+    span.textContent = pool[Math.floor(Math.random() * pool.length)];
+    frag.appendChild(span);
+  }
+  const finalSpan = document.createElement("span");
+  finalSpan.style.height = itemHeight + "px";
+  finalSpan.textContent = finalSymbol;
+  frag.appendChild(finalSpan);
+  strip.appendChild(frag);
+
+  const totalItems = fillerCount + 1;
+  const targetY = -(itemHeight * (totalItems - 1));
+
+  // Reflow erzwingen, damit der Browser die Ausgangsposition (0px) einmal
+  // gerendert hat, bevor der eigentliche "Lauf" per Transition startet
+  strip.offsetHeight;
+
+  requestAnimationFrame(() => {
+    strip.style.transition = `transform ${duration}ms cubic-bezier(0.15, 0.85, 0.32, 1)`;
+    strip.style.transform = `translateY(${targetY}px)`;
   });
 }
 
@@ -100,6 +155,7 @@ resizeObserver.observe(document.body);
 
 window.addEventListener("resize", () => {
   buildBulbs();
+  if (!isSpinning) initReels();
 });
 
 let isSpinning = false;
@@ -143,22 +199,27 @@ function pullLever() {
   const chosen = randomSound();
 
   leverBtn.classList.add("pulled");
-  reels.forEach((r) => r.classList.add("spinning"));
   chaseLights(true);
   readout.textContent = "Dreht …";
 
   // Hebel geht nach kurzer Zeit wieder in Ruheposition zurueck
   setTimeout(() => leverBtn.classList.remove("pulled"), 380);
 
-  // Walzen laufen lassen, dann auf dem gewaehlten Symbol stoppen
+  // Walzen laufen lassen, dann auf dem gewaehlten Symbol stoppen -
+  // jede Walze etwas laenger als die vorherige, wie am echten Automaten
   const spinDuration = 1100;
   const stopDelays = [spinDuration, spinDuration + 220, spinDuration + 440];
 
   reels.forEach((reel, idx) => {
+    const finalSymbol = idx === 1 ? chosen.symbol : randomSymbolExcept();
+    reel.classList.add("spinning");
+    reel.classList.remove("bounce");
+    spinReel(reel, finalSymbol, stopDelays[idx]);
+
     setTimeout(() => {
       reel.classList.remove("spinning");
-      const span = reel.querySelector("span");
-      span.textContent = idx === 1 ? chosen.symbol : randomSymbolExcept();
+      reel.classList.add("bounce");
+      setTimeout(() => reel.classList.remove("bounce"), 280);
     }, stopDelays[idx]);
   });
 
