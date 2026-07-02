@@ -22,8 +22,6 @@ const SOUND_LIBRARY = [
   { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/phuph.mp3",             label: "💨💨💨💨",        symbol: "💨" },
 ];
 
-const SYMBOLS = ["🫧", "🦴", "🐽", "😼", "👣", "💨"];
-
 const leverBtn   = document.getElementById("leverBtn");
 const leverArm   = document.getElementById("leverArm");
 const readout    = document.getElementById("readout");
@@ -32,77 +30,17 @@ const reels      = [
   document.getElementById("reel2"),
   document.getElementById("reel3"),
 ];
-
-const START_COMBINATION = ["6️⃣", "7️⃣", "⁶🤷‍♂️⁷"];
-
-function initReels() {
-  reels.forEach((reel, idx) => {
-    const span = reel.querySelector("span");
-    span.textContent = START_COMBINATION[idx];
-  });
-}
-
 const bulbRow = document.getElementById("bulbRow");
 
 // Lichterkette erzeugen
-/* alte Lichterketten erzeugung
+const BULB_COUNT = 16;
 const bulbs = [];
-
-function buildBulbs() {
-  bulbRow.innerHTML = "";
-  bulbs.length = 0;
-
-  const count = getBulbCount();
-
-  for (let i = 0; i < count; i++) {
-    const b = document.createElement("span");
-    b.className = "bulb";
-    bulbRow.appendChild(b);
-    bulbs.push(b);
-  }
-}*/
-
-//neue Erzeugung
-
-const bulbs = [];
-
-const BULB_SIZE = 10;
-const BULB_MIN_GAP = 6;
-
-function calcBulbCount(width) {
-  return Math.floor(width / (BULB_SIZE + BULB_MIN_GAP));
+for (let i = 0; i < BULB_COUNT; i++) {
+  const b = document.createElement("span");
+  b.className = "bulb";
+  bulbRow.appendChild(b);
+  bulbs.push(b);
 }
-
-function buildBulbs() {
-  const width = bulbRow.getBoundingClientRect().width;
-  const count = Math.max(8, calcBulbCount(width));
-
-  bulbRow.innerHTML = "";
-  bulbs.length = 0;
-
-  const frag = document.createDocumentFragment();
-
-  for (let i = 0; i < count; i++) {
-    const b = document.createElement("span");
-    b.className = "bulb";
-    frag.appendChild(b);
-    bulbs.push(b);
-  }
-
-  bulbRow.appendChild(frag);
-}
-
-buildBulbs();
-
-const resizeObserver = new ResizeObserver(() => {
-  buildBulbs();
-});
-
-resizeObserver.observe(document.body);
-
-window.addEventListener("resize", () => {
-  buildBulbs();
-});
 
 let isSpinning = false;
 let bulbTimer = null;
@@ -113,7 +51,7 @@ function randomSound() {
 }
 
 function randomSymbolExcept() {
-  const pool = ["6️⃣", "⚅", "6️", "7️", "7️⃣", "⁶🤷‍♂️⁷"];
+  const pool = ["6️⃣", "⚅", "6️", "7️", "7️⃣"];
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -138,20 +76,6 @@ function stopLightsSettled() {
   setTimeout(() => bulbs.forEach((b) => b.classList.remove("lit")), 700);
 }
 
-function spinReel(reel, symbol, delay) {
-  const strip = reel.querySelector(".reel-strip");
-
-  const baseIndex = 20 * SYMBOLS.length;
-  const symbolIndex = SYMBOLS.indexOf(symbol);
-
-  const offset = -(baseIndex + symbolIndex) * 64;
-
-  setTimeout(() => {
-    strip.style.transition = "transform 2.4s cubic-bezier(.15,.85,.2,1)";
-    strip.style.transform = `translateY(${offset}px)`;
-  }, delay);
-}
-
 function pullLever() {
   if (isSpinning) return;
   isSpinning = true;
@@ -159,9 +83,7 @@ function pullLever() {
   const chosen = randomSound();
 
   leverBtn.classList.add("pulled");
-  spinReel(reels[0], randomSymbol(), 0);
-  spinReel(reels[1], chosen.symbol, 200);
-  spinReel(reels[2], randomSymbol(), 400);
+  reels.forEach((r) => r.classList.add("spinning"));
   chaseLights(true);
   readout.textContent = "Dreht …";
 
@@ -171,6 +93,14 @@ function pullLever() {
   // Walzen laufen lassen, dann auf dem gewaehlten Symbol stoppen
   const spinDuration = 1100;
   const stopDelays = [spinDuration, spinDuration + 220, spinDuration + 440];
+
+  reels.forEach((reel, idx) => {
+    setTimeout(() => {
+      reel.classList.remove("spinning");
+      const span = reel.querySelector("span");
+      span.textContent = idx === 1 ? chosen.symbol : randomSymbolExcept();
+    }, stopDelays[idx]);
+  });
 
   setTimeout(() => {
     chaseLights(false);
@@ -193,22 +123,3 @@ leverBtn.addEventListener("keydown", (e) => {
     pullLever();
   }
 });
-
-function initReels() {
-  reels.forEach(reel => {
-    const strip = reel.querySelector(".reel-strip");
-
-    strip.innerHTML = "";
-
-    for (let i = 0; i < 30; i++) {
-      const div = document.createElement("div");
-      div.className = "reel-symbol";
-      div.textContent = SYMBOLS[i % SYMBOLS.length];
-      strip.appendChild(div);
-    }
-
-    strip.style.transform = "translateY(0px)";
-  });
-}
-
-window.addEventListener("DOMContentLoaded", initReels);
