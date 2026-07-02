@@ -139,6 +139,113 @@ body {
 
 .reel-window {
   display: flex;
+  gap: .6rem;
+  justify-content: center;
+  background: var(--ink);
+  border-radius: 10px;
+  padding: .9rem .6rem;
+  box-shadow:
+      inset 0 4px 12px rgba(0,0,0,.7);
+}
+
+.reel{
+    position:relative;
+
+    width:64px;
+    height:64px;
+
+    overflow:hidden;
+
+    border-radius:8px;
+
+    background:
+        linear-gradient(180deg,#141d22,#050709);
+
+    box-shadow:
+        inset 0 0 0 2px rgba(95,214,255,.25),
+        inset 0 10px 15px rgba(255,255,255,.05),
+        inset 0 -12px 18px rgba(0,0,0,.45);
+}
+
+/* obere und untere Abdunklung wie im Casino */
+
+.reel::before,
+.reel::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    width:100%;
+
+    height:18px;
+
+    z-index:2;
+
+    pointer-events:none;
+
+}
+
+.reel::before{
+
+    top:0;
+
+    background:
+        linear-gradient(rgba(0,0,0,.55),transparent);
+
+}
+
+.reel::after{
+
+    bottom:0;
+
+    background:
+        linear-gradient(transparent,rgba(0,0,0,.55));
+
+}
+
+.reel-strip{
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    will-change:transform;
+
+}
+
+.reel-symbol{
+
+    height:64px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:2rem;
+
+    user-select:none;
+
+}
+
+.reel-strip.spinning{
+
+    transition:
+        transform 2.4s cubic-bezier(.15,.82,.22,1);
+
+}
+
+/*
+.reel-window {
+  display: flex;
   gap: 0.6rem;
   justify-content: center;
   background: var(--ink);
@@ -174,6 +281,7 @@ body {
   50%  { transform: translateY(10%);  filter: blur(1px); }
   100% { transform: translateY(-10%); filter: blur(1px); }
 }
+*/
 
 .readout {
   font-family: var(--font-condensed);
@@ -267,10 +375,11 @@ body {
   .lever-assembly { width: 66px; height: 170px; }
   .lever-arm { height: 140px; bottom: 16px; }
   .lever-rod { height: 116px; }
-  .reel { width: 52px; height: 52px; font-size: 1.7rem; }
+  .reel { width: 52px; height: 52px; }
+  .reel-symbol { height: 52px; font-size: 1.7rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .lever-arm, .bulb-row .bulb { transition: none; }
-  .reel.spinning span { animation: none; }
+  .reel-strip{ transition:none; }
 }
