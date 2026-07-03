@@ -13,6 +13,15 @@
 
   <div class="bulb-row" id="bulbRow" aria-hidden="true"></div>
 
+  <header class="top-bar">
+  <div class="balance" id="balance">100 💰</div>
+  
+  <div class="info-dropdown">
+    <button class="dropdown-btn">📋 Sound-Preise</button>
+    <div class="dropdown-content" id="soundList"></div>
+  </div>
+</header>
+
   <main class="stage">
     <h1 class="marquee">SOUND GAMBLING</h1>
     <p class="subtitle">Was sind das wohl für sounds?</p>
@@ -42,5 +51,26 @@
   </main>
 
   <script src="js/script.js"></script>
+
+  <script>
+// Dropdown mit Sound-Preisen füllen
+  function buildSoundList() {
+    const container = document.getElementById("soundList");
+    container.innerHTML = "<h3>Sound → Coins</h3>";
+  
+    SOUND_LIBRARY.forEach(s => {
+      const div = document.createElement("div");
+      div.className = "sound-entry";
+      div.innerHTML = `${s.symbol} ${s.label} <span class="coin-value">+${s.coins} 💰</span>`;
+      container.appendChild(div);
+    });
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    initReels();
+    updateBalanceDisplay();
+    buildSoundList();
+  });
+</script>
 </body>
 </html>
