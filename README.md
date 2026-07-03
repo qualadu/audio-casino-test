@@ -11,3 +11,8 @@ This repository is not intended for use by third parties.
 The source code is not intended for use by third parties.
 
 Please note that the audio files (all mp3-files / linked files from the web) referenced in the `SOUND_LIBRARY` (especially custom audio files provided by the repository owner) are **not** covered by this permission and may **not** be used, redistributed, or included in third-party projects without explicit permission from their respective copyright holder.
+
+## Curently working on Version 2.3
+- Adding a Coin System
+- Adjusting rarity of sounds to amount of coins winned by that sound
+- dropdown with value of sounds
