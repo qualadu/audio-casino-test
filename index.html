@@ -52,38 +52,49 @@
 
   <script src="js/script.js"></script>
 
-<script>
-  // Dropdown mit Sound-Preisen füllen + Sortierung (höchster Gewinn zuerst)
-  function buildSoundList() {
-    const container = document.getElementById("soundList");
-    container.innerHTML = "<h3>Sound → Coins</h3>";
-   
-    // Kopie der Library und nach Coins absteigend sortieren
-    const sortedSounds = [...SOUND_LIBRARY].sort((a, b) => b.coins - a.coins);
+  <!-- === Coins-Dropdown Script === -->
+  <script>
+    function buildSoundList() {
+      const container = document.getElementById("soundList");
+      container.innerHTML = "<h3>Sound → Coins</h3>";
+     
+      const sortedSounds = [...SOUND_LIBRARY].sort((a, b) => b.coins - a.coins);
 
-    sortedSounds.forEach(s => {
-      const div = document.createElement("div");
-      div.className = "sound-entry";
-      div.innerHTML = `${s.symbol} ${s.label} <span class="coin-value">+${s.coins} 💰</span>`;
-      container.appendChild(div);
+      sortedSounds.forEach(s => {
+        const div = document.createElement("div");
+        div.className = "sound-entry";
+        div.innerHTML = `${s.symbol} ${s.label} <span class="coin-value">+${s.coins} 💰</span>`;
+        container.appendChild(div);
+      });
+    }
+
+    function toggleDropdown(e) {
+      e.stopImmediatePropagation(); // verhindert Probleme mit mehreren Events
+      const dropdown = document.querySelector('.info-dropdown');
+      dropdown.classList.toggle('active');
+    }
+
+    // Schließen wenn außerhalb geklickt wird
+    function closeDropdownOnOutsideClick(e) {
+      const dropdown = document.querySelector('.info-dropdown');
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initReels();
+      updateBalanceDisplay();
+      buildSoundList();
+
+      const dropdownBtn = document.querySelector('.dropdown-btn');
+      if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', toggleDropdown);
+      }
+
+      // Klick außerhalb schließt das Menü
+      document.addEventListener('click', closeDropdownOnOutsideClick);
     });
-  }
-
-  // Toggle-Funktion für Dropdown (öffnen/schließen)
-  function toggleDropdown() {
-    const dropdown = document.querySelector('.info-dropdown');
-    dropdown.classList.toggle('active');
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    initReels();
-    updateBalanceDisplay();
-    buildSoundList();
-
-    // Button zum Toggle machen
-    const dropdownBtn = document.querySelector('.dropdown-btn');
-    dropdownBtn.addEventListener('click', toggleDropdown);
-  });
-</script>
+  </script>
 </body>
 </html>
