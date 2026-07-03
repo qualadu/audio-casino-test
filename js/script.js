@@ -196,9 +196,39 @@ window.addEventListener("resize", () => {
 let isSpinning = false;
 let bulbTimer = null;
 
+// === Gewichtete Zufallsauswahl mit gewünschten Wahrscheinlichkeiten ===
 function randomSound() {
-  const i = Math.floor(Math.random() * SOUND_LIBRARY.length);
-  return SOUND_LIBRARY[i];
+  if (SOUND_LIBRARY.length === 0) return SOUND_LIBRARY[0];
+
+  // Kategorien nach Coin-Wert
+  const groups = {
+    zero:    SOUND_LIBRARY.filter(s => s.coins === 0),           // ~40%
+    low:     SOUND_LIBRARY.filter(s => s.coins >= 1 && s.coins <= 10),   // ~30%
+    medium:  SOUND_LIBRARY.filter(s => s.coins >= 11 && s.coins <= 15),  // ~20%
+    high:    SOUND_LIBRARY.filter(s => s.coins >= 16)             // ~10%
+  };
+
+  // Zufällige Kategorie auswählen mit gewünschter Wahrscheinlichkeit
+  const rand = Math.random() * 100;   // 0 - 100
+
+  let selectedGroup;
+  if (rand < 40) {
+    selectedGroup = groups.zero;      // 40%
+  } else if (rand < 70) {
+    selectedGroup = groups.low;       // 30% (40-70)
+  } else if (rand < 90) {
+    selectedGroup = groups.medium;    // 20% (70-90)
+  } else {
+    selectedGroup = groups.high;      // 10% (90-100)
+  }
+
+  // Falls eine Gruppe leer ist, nächste nehmen
+  if (selectedGroup.length === 0) {
+    selectedGroup = SOUND_LIBRARY;
+  }
+
+  // Zufälligen Sound aus der Gruppe auswählen
+  return selectedGroup[Math.floor(Math.random() * selectedGroup.length)];
 }
 
 function randomSymbolExcept() {
