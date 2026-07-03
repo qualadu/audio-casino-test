@@ -15,7 +15,7 @@
   <div class="balance" id="balance">100 💰</div>
   
   <div class="info-dropdown">
-    <button class="dropdown-btn">📋 Sound-Preise</button>
+    <button class="dropdown-btn">Sound Payoffs</button>
     <div class="dropdown-content" id="soundList"></div>
   </div>
   </header>
@@ -56,7 +56,7 @@
   <script>
     function buildSoundList() {
       const container = document.getElementById("soundList");
-      container.innerHTML = "<h3>Sound → Coins</h3>";
+      container.innerHTML = "<h3>Sound Payoffs</h3>";
      
       const sortedSounds = [...SOUND_LIBRARY].sort((a, b) => b.coins - a.coins);
 
