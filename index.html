@@ -12,7 +12,7 @@
 <body>
 
   <header class="top-bar">
-  <div class="balance" id="balance">100 💰</div>
+  <div class="balance" id="balance">100 🪙</div>
   
   <div class="info-dropdown">
     <button class="dropdown-btn">Sound Payoffs</button>
@@ -35,6 +35,10 @@
             <div class="reel" id="reel3"><div class="reel-strip"><span>&#10052;&#65039;</span></div></div>
           </div>
           <p class="readout" id="readout">Bereit</p>
+        </div>
+
+        <div class="cost-indicator" id="costIndicator">
+          <span class="cost-text">Spin for <strong>5 🪙</strong></span>
         </div>
 
         <button class="lever-assembly" id="leverBtn" type="button" aria-label="Hebel ziehen, um einen zuf&auml;lligen Sound abzuspielen">
@@ -63,7 +67,7 @@
       sortedSounds.forEach(s => {
         const div = document.createElement("div");
         div.className = "sound-entry";
-        div.innerHTML = `${s.symbol} ${s.label} <span class="coin-value">+${s.coins} 💰</span>`;
+        div.innerHTML = `${s.symbol} ${s.label} <span class="coin-value">+${s.coins} 🪙</span>`;
         container.appendChild(div);
       });
     }
