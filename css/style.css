@@ -404,6 +404,48 @@ body {
   transition: transform 0.25s ease;
 }
 
+/* Kosten-Hinweis mit Animation */
+.cost-indicator {
+  text-align: center;
+  margin: 0.6rem 0 1rem 0;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 215, 0, 0.12);
+  border: 2px solid #ffd700;
+  border-radius: 12px;
+  font-family: var(--font-condensed);
+  font-size: 1.15rem;
+  color: #ffeb99;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.cost-indicator strong {
+  color: #ffd700;
+  font-size: 1.3rem;
+}
+
+.cost-indicator.low-coins {
+  background: rgba(255, 80, 80, 0.2);
+  border-color: #ff5555;
+  color: #ffaaaa;
+  animation: lowCoinsPulse 1.2s infinite;
+}
+
+@keyframes lowCoinsPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Hebel deaktiviert */
+.lever-assembly.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(70%);
+}
+
+.lever-assembly.disabled .lever-knob {
+  background: radial-gradient(circle at 35% 30%, #666, #444);
+}
 .info-dropdown.active .dropdown-btn::after {
   transform: rotate(180deg);
 }
