@@ -379,3 +379,56 @@ body {
   color: #ffd700;
   font-weight: 600;
 }
+
+
+/* Verbessertes Dropdown */
+.info-dropdown {
+  position: relative;
+}
+
+.dropdown-btn {
+  background: var(--steel);
+  color: var(--paper);
+  border: 2px solid var(--accent);
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.dropdown-btn:hover {
+  background: var(--accent);
+  color: var(--deep);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: var(--deep);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem;
+  width: 260px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  z-index: 20;
+  margin-top: 6px;
+}
+
+/* Wenn aktiv (geöffnet) */
+.info-dropdown.active .dropdown-content {
+  display: block;
+}
+
+/* Optional: Pfeil der sich dreht */
+.dropdown-btn::after {
+  content: " ▼";
+  font-size: 0.8em;
+  transition: transform 0.3s;
+}
+
+.info-dropdown.active .dropdown-btn::after {
+  transform: rotate(180deg);
+}
