@@ -14,13 +14,48 @@ const SOUND_LIBRARY = [
   { file: "audio/testlib/applaus.wav",    label: "Applaus",         symbol: "❄️" },
   { file: "audio/testlib/niete.wav",      label: "Nochmal!",        symbol: "🔋" },
   */
-  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/bruahh_brrrh.mp3",      label: "🫧🫧🫧🫧",        symbol: "🫧" },
-  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/bruahhh.mp3",           label: "🦴🦴🦴🦴",        symbol: "🦴" },
-  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/chuhhp.mp3",            label: "🐽🐽🐽🐽",        symbol: "🐽" },
-  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/huachp.mp3",            label: "😼😼😼😼",        symbol: "😼" },
-  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/luuhhp.mp3",            label: "👣👣👣👣",        symbol: "👣" },
-  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/phuph.mp3",             label: "💨💨💨💨",        symbol: "💨" },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/bruahh_brrrh.mp3",      label: "🫧🫧🫧🫧",        symbol: "🫧",        coins: 20 },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/bruahhh.mp3",           label: "🦴🦴🦴🦴",        symbol: "🦴",        coins: 10 },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/chuhhp.mp3",            label: "🐽🐽🐽🐽",        symbol: "🐽",        coins: 5 },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/huachp.mp3",            label: "😼😼😼😼",        symbol: "😼",        coins: 0 },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/luuhhp.mp3",            label: "👣👣👣👣",        symbol: "👣",        coins: 15 },
+  { file: "https://www.fahrschule-alfonso.ch/wp-content/uploads/2026/07/phuph.mp3",             label: "💨💨💨💨",        symbol: "💨",        coins: 0 },
 ];
+
+// === Coins System ===
+let balance = 100; // Startguthaben
+
+function getBalanceElement() {
+  return document.getElementById("balance");
+}
+
+function updateBalanceDisplay() {
+  const el = getBalanceElement();
+  if (el) el.textContent = `${balance} 💰`;
+}
+
+function canAffordSpin() {
+  return balance >= 5;
+}
+
+function deductSpinCost() {
+  balance -= 5;
+  updateBalanceDisplay();
+}
+
+function addWinCoins(sound) {
+  balance += sound.coins;
+  updateBalanceDisplay();
+  
+  // Kleiner visueller Feedback
+  const readout = document.getElementById("readout");
+  const oldText = readout.textContent;
+  readout.style.transition = "color 0.3s";
+  readout.style.color = "#ffd700"; // Gold
+  setTimeout(() => {
+    readout.style.color = "var(--accent)";
+  }, 1200);
+}
 
 const leverBtn   = document.getElementById("leverBtn");
 const leverArm   = document.getElementById("leverArm");
@@ -194,7 +229,16 @@ function stopLightsSettled() {
 
 function pullLever() {
   if (isSpinning) return;
+  
+  if (!canAffordSpin()) {
+    const readout = document.getElementById("readout");
+    readout.textContent = "Nicht genug Coins! (min. 5)";
+    setTimeout(() => readout.textContent = "Bereit", 1800);
+    return;
+  }
+
   isSpinning = true;
+  deductSpinCost();
 
   const chosen = randomSound();
 
@@ -202,11 +246,8 @@ function pullLever() {
   chaseLights(true);
   readout.textContent = "Dreht …";
 
-  // Hebel geht nach kurzer Zeit wieder in Ruheposition zurueck
   setTimeout(() => leverBtn.classList.remove("pulled"), 380);
 
-  // Walzen laufen lassen, dann auf dem gewaehlten Symbol stoppen -
-  // jede Walze etwas laenger als die vorherige, wie am echten Automaten
   const spinDuration = 1100;
   const stopDelays = [spinDuration, spinDuration + 220, spinDuration + 440];
 
@@ -230,8 +271,10 @@ function pullLever() {
 
     const audio = new Audio(chosen.file);
     audio.play().catch(() => {
-      readout.textContent = chosen.label + " (Audio blockiert – bitte Seite anklicken)";
+      readout.textContent = chosen.label + " (Audio blockiert)";
     });
+
+    addWinCoins(chosen);   // ← Coins gutschreiben
 
     isSpinning = false;
   }, stopDelays[2] + 150);
