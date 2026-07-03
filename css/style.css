@@ -311,8 +311,7 @@ body {
 
 /* Top Bar */
 .top-bar {
-  width: 100%;
-  max-width: 520px;
+  width: 100vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
