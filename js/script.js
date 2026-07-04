@@ -13,7 +13,7 @@ const SOUND_LIBRARY = [
 ];
 
 // === Coins System ===
-let balance = 100;
+let balance = 10;
 
 function getBalanceElement() {
   return document.getElementById("balance");
