@@ -129,7 +129,17 @@ body {
   gap: 1.2rem;                  /* Abstand zwischen Elementen */
 }
 
+/* Linker Block: Cost + Slots (gestapelt, gleiche Breite) */
+.left-slot-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;                     /* nimmt den verfügbaren Platz */
+  min-width: 0;
+}
+
 .cabinet-plate {
+  width: 100%;
   flex: 1;
   background: var(--deep);
   border-radius: 14px;
@@ -409,11 +419,12 @@ body {
 .cost-container {
   width: 100%;
   text-align: center;
-  margin: 0 0 1.2rem 0;   /* etwas weniger Abstand nach unten */
-  padding: 0 1rem;
+  margin-bottom: 1.1rem;   /* etwas weniger Abstand nach unten */
+  padding: 0;
 }
 
 .cost-indicator {
+  width: 100%;
   display: inline-block;
   padding: 0.7rem 1.8rem;
   background: rgba(255, 215, 0, 0.18);
