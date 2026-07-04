@@ -116,17 +116,15 @@ body {
 .cabinet {
   position: relative;
   width: 100%;
-  background:
-    linear-gradient(180deg, #4c5a63 0%, var(--steel) 55%, var(--steel-dark) 100%);
+  background: linear-gradient(180deg, #4c5a63 0%, var(--steel) 55%, var(--steel-dark) 100%);
   border-radius: 22px;
   padding: 1.6rem 1.6rem 2.4rem;
-  box-shadow:
-    0 20px 45px rgba(0, 0, 0, 0.55),
-    inset 0 0 0 3px rgba(95, 214, 255, 0.55),
-    inset 0 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: /* ... bleibt gleich */;
+  
   display: flex;
-  align-items: flex-end;
-  gap: 1.2rem;
+  flex-direction: column;       /* wichtig: Spalte statt Zeile */
+  align-items: center;          /* zentriert */
+  gap: 0.8rem;                  /* Abstand zwischen Elementen */
 }
 
 .cabinet-plate {
@@ -405,11 +403,13 @@ body {
 }
 
 /* Cost Container - oben im äußeren Automaten-Bereich */
+/* === Cost Indicator - besser positioniert === */
 .cost-container {
   width: 100%;
   text-align: center;
-  margin: 0.8rem 0 1.4rem 0;
+  margin: 0.4rem 0 1.2rem 0;   /* etwas weniger Abstand nach unten */
   padding: 0 1rem;
+  order: -1;                    /* sorgt dafür, dass er immer ganz oben im Flex-Container ist */
 }
 
 .cost-indicator {
