@@ -31,10 +31,10 @@ function updateCostIndicator() {
   if (!indicator) return;
   if (balance < 5) {
     indicator.classList.add("low-coins");
-    indicator.querySelector(".cost-text").innerHTML = `Nicht genug Coins! <strong>5 🪙</strong> benötigt`;
+    indicator.querySelector(".cost-text").innerHTML = `Not enough Coins! <strong>5 🪙</strong> needed`;
   } else {
     indicator.classList.remove("low-coins");
-    indicator.querySelector(".cost-text").innerHTML = `Spin kostet <strong>5 🪙</strong>`;
+    indicator.querySelector(".cost-text").innerHTML = `Spin for <strong>5 🪙</strong>`;
   }
 }
 
