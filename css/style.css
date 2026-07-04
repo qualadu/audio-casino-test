@@ -238,8 +238,15 @@ body {
   border: none;
   padding: 0;
   cursor: pointer;
-  align-self: center;
+  margin-top: 2.2rem;
   -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 420px) {
+  .lever-assembly {
+    margin-top: 1.8rem;        /* kleinerer Wert auf Handy */
+    height: 170px;
+  }
 }
 
 .lever-assembly:focus-visible {
